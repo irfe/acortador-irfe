@@ -5,14 +5,15 @@ ob_start();
 <head>
 <link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Neucha' rel='stylesheet' type='text/css'>
-<title>Ac&oacutertame este link</title>
-<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type"/>
+<title>Acortador de links</title>
+<meta content="text/html; charset=iso-utf-8" http-equiv="Content-Type"/>
 
 <style type="text/css">
 <!--
 	body {
 		font-family:'PT Sans Narrow', sans-serif;
 		font-size:0.9em;
+                -webkit-font-smoothing: antialiased;
 	}
 	div {
 		top: 0; 
@@ -34,6 +35,9 @@ ob_start();
 		margin:0;
 		border:1px solid #dddddd;
 		width:50%;
+                border-top-left-radius: 10px;
+                border-bottom-right-radius: 10px;
+
 	}
 	form label {
 		font-weight:bold;
@@ -41,8 +45,8 @@ ob_start();
 	}
 	form input {
 		border:1px solid #dddddd;
-		border-right:2px solid #cccccc;
-		border-bottom:2px solid #cccccc;
+		border-right:1px solid #cccccc;
+		border-bottom:1px solid #cccccc;
 		padding:4px;
 		font-family:'PT Sans Narrow', sans-serif;
 		width:70%;
@@ -79,7 +83,7 @@ ob_start();
 /*
 el sitio donde se guardan las URLs es:
 */
-$file = '../../links.dat';
+$file = 'links.dat';
 
 /* 
 use mod_rewrite: 0 - no or 1 - yes
@@ -91,16 +95,16 @@ language/style/output variables
 */
 
 $l_url			= 'URL';
-$l_nourl		= '<strong>&iexcl;Espera! &iexcl;Falta tu URL!</strong>';
-$l_yoururl		= '<strong>&iexcl;Excelente! Tu URL corta es:</strong>';
-$l_invalidurl	= '<strong>Algo ha salido mal. Quiz&aacute;s a tu URL le falte el "http://".</strong>';
-$l_createurl	= '&iexcl;Hazla corta!';
+$l_nourl		= '<strong>&iexcl;Espera! &iexcl;Falta la URL!</strong>';
+$l_yoururl		= '<strong>&iexcl;Excelente! La URL corta es:</strong>';
+$l_invalidurl	= '<strong>Algo malo ocurre. Quiz&aacute;s a la URL le falte el "http://"</strong>';
+$l_createurl	= 'Acortar';
 
 //////////////////// NO EDITAR ////////////////////
 
 if(!is_writable($file) || !is_readable($file))
 {
-	die('Vea si los permisos están bien o revise la key.');
+	die('Vea si los permisos est&aacute;n bien o revise la key.');
 }
 
 $action = trim($_GET['id']);
@@ -133,7 +137,7 @@ if($action == 'create')
 				$filename	= explode('/', $_SERVER['PHP_SELF']);
 				$filename   = $filename[(count($filename) - 1)];
 				
-				$shorturl = ($use_rewrite == 1) ? "http://i.irfe.cl/{$id}" : "http://i.irfe.cl/{$filename}?id={$id}";
+				$shorturl = ($use_rewrite == 1) ? "http://{$_SERVER['HTTP_HOST']}{$dir}{$id}" : "http://{$_SERVER['HTTP_HOST']}{$dir}/{$filename}?id={$id}";
 				
 				$output = "{$l_yoururl} <a href='{$shorturl}'>{$shorturl}</a>";
 			}
@@ -166,7 +170,7 @@ if($action == 'redirect')
 
 
 <!-- html -->
-<div align=center><span><font face="Neucha" size="24px">Ac&oacutertame este <a href="http://i.irfe.cl/prev/v0.3.0~20122010/">link</a></font>
+<div align=center><span><font face="Neucha" size="24px">Acortador de <a href="http://i.irfe.cl">links</a></font>
 <br />
 <form action="<?=$_SERVER['PHP_SELF']?>" method="post">
 <p class="response"><?=$output?></p>
@@ -179,9 +183,9 @@ if($action == 'redirect')
 	<input type="submit" class="button" name="create" value="<?=$l_createurl?>" />
 </p>
 </form>
-<p>0.3 (20122010) - <a href="http://i.irfe.cl">Ir a versi&oacute;n actual</a>
-<br />Creado por <a href="http://i.irfe.cl/11">Ignacio Trujillo</a>
-<br />2010</p>
+<p>alpha - 0.3.1
+<br /><a href="http://ignac.es">Ignacio Trujillo</a>
+<br />2010 - 2011</p>
 <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://i.irfe.cl/" data-count="none" data-via="irfe" data-related="irfe">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 </span></div>
 <!-- html -->
