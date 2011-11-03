@@ -3,28 +3,36 @@ ob_start();
 ?>
 <!DOCTYPE html>
 <head>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Neucha' rel='stylesheet' type='text/css'>
 <title>Acortador de links</title>
+<script type="text/javascript" src="https://www.google.com/jsapi">
+</script>
+<script type="text/javascript">
+  google.load("webfont", "1");
+
+  google.setOnLoadCallback(function() {
+    WebFont.load({
+      google: {
+        families: [ 'Amatic+SC:700:latin', 'Open+Sans+Condensed:300:latin' ]
+      }});
+  });
+</script>
 <meta content="text/html; charset=iso-utf-8" http-equiv="Content-Type"/>
 
 <style type="text/css">
 <!--
 	body {
-		font-family:'PT Sans Narrow', sans-serif;
+		font-family:'Open Sans Condensed', sans-serif;
 		font-size:0.9em;
                 -webkit-font-smoothing: antialiased;
 	}
-	div {
-		top: 0; 
-		left: 0; 
-		width: 100%; 
-		height: 100%;
-		position: fixed; 
-		display: table
+	div.centro {
+		width: 70%; 
+                margin-left:auto;
+                margin-right:auto;
+                text-align:center;
+                height:340px;
 	}
 	span {
-		display: table-cell; 
 		vertical-align: middle
 	}
 	a, a:hover, a:visited {
@@ -34,10 +42,9 @@ ob_start();
 		padding:15px;
 		margin:0;
 		border:1px solid #dddddd;
-		width:50%;
                 border-top-left-radius: 10px;
                 border-bottom-right-radius: 10px;
-
+                box-shadow: rgba(200,200,200,0.7) 0 4px 10px -1px;
 	}
 	form label {
 		font-weight:bold;
@@ -45,23 +52,41 @@ ob_start();
 	}
 	form input {
 		border:1px solid #dddddd;
-		border-right:1px solid #cccccc;
-		border-bottom:1px solid #cccccc;
-		padding:4px;
-		font-family:'PT Sans Narrow', sans-serif;
-		width:70%;
+		padding:8px;
+		font-family:'Open Sans Condensed', sans-serif;
+		width:80%;
+                box-shadow: inset 3px 3px 5px rgba(200,200,200,0.2);
+                font-size:1.5em;
+
 	}
 	form input.button {
-		background-color:#2d2d2d;
-		font-weight:bold;
-		font-size:1.2em;
-		color:#ffffff;
-		border:1px solid #2d2d2d;
-		border-right-color:#424242;
-		border-bottom-color:#424242;
-		font-family:'PT Sans Narrow', sans-serif;
-		width:30%;
+                width:6em;
+	        font-size: 1.3em;
+                color: rgb(5, 5, 5);
+                padding: 10px 20px;
+                background: -moz-linear-gradient( top, white 0%, whiteSmoke);
+                background: -webkit-gradient( linear, left top, left bottom, from(white), to(whiteSmoke));
+                border-radius: 14px;
+                -moz-border-radius: 14px;
+                border: 1px solid rgb(196, 196, 196);
+                text-shadow: 0px -1px 0px rgba(000, 000, 000, 0.2), 0px 1px 0px rgba(255, 255, 255, 0.4);
+                text-transform: uppercase;
 	}
+       #titulo {
+                font-family: 'Amatic SC', cursive;
+                font-size: 4.2em;
+                margin-bottom: -.3em;
+                text-shadow: 0.5px 0.1px 29px ghostWhite;
+                text-transform: uppercase;
+        }
+       p.response {
+                font-size: 1.3em;
+        }
+        p.response a {
+                font-weight:bold;
+                font-size: 1.5em;
+        }
+
 //-->
 </style>
 
@@ -74,7 +99,7 @@ ob_start();
 /*
 *
 *	Ignacio Trujillo
-*	Alpha - v.0.3
+*	Alpha - v.0.3.2
 *	copyright (c) 2010
 *	Creative Commons Attribution 3.0
 *
@@ -170,7 +195,7 @@ if($action == 'redirect')
 
 
 <!-- html -->
-<div align=center><span><font face="Neucha" size="24px">Acortador de <a href="http://i.irfe.cl">links</a></font>
+<div class="centro"><span><p id="titulo">Acortador de <a style="text-decoration: none;" href="http://i.irfe.cl">links</a></p>
 <br />
 <form action="<?=$_SERVER['PHP_SELF']?>" method="post">
 <p class="response"><?=$output?></p>
