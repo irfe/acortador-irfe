@@ -108,7 +108,8 @@ ob_start();
 /*
 el sitio donde se guardan las URLs es:
 */
-$file = 'links.dat';
+
+$file = '../../links.dat';
 
 /* 
 use mod_rewrite: 0 - no or 1 - yes
@@ -162,7 +163,7 @@ if($action == 'create')
 				$filename	= explode('/', $_SERVER['PHP_SELF']);
 				$filename   = $filename[(count($filename) - 1)];
 				
-				$shorturl = ($use_rewrite == 1) ? "http://{$_SERVER['HTTP_HOST']}{$dir}{$id}" : "http://{$_SERVER['HTTP_HOST']}{$dir}/{$filename}?id={$id}";
+				$shorturl = ($use_rewrite == 1) ? "http://i.irfe.cl/{$id}" : "http://i.irfe.cl/{$filename}?id={$id}";
 				
 				$output = "{$l_yoururl} <a href='{$shorturl}'>{$shorturl}</a>";
 			}
