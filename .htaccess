@@ -1,0 +1,7 @@
+RewriteEngine on
+RewriteRule ^([0-9]*)$ index.php?id=$1 [L]
+
+RewriteCond %{HTTP_HOST} ^i\.irfe\.cl$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.i\.irfe\.cl$
+RewriteRule ^/?$ "http\:\/\/www\.i\.irfe\.cl\/" [R=301,L]
+
