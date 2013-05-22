@@ -1,0 +1,144 @@
+html, body, div, span, h3, a, small, form, label, footer, header {
+	margin:0;
+	padding:0;
+	border:0;
+	font-size:100%;
+	font:inherit;
+	vertical-align:baseline;
+}
+@font-face {
+	font-family:'Amatic SC';
+	font-style:normal;
+	font-weight:400;
+	src: local('Amatic SC Regular'), local('AmaticSC-Regular'), url(http://themes.googleusercontent.com/static/fonts/amaticsc/v3/DPPfSFKxRTXvae2bKDzp5D8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
+}
+@font-face {
+	font-family:'Open Sans Condensed';
+	font-style:normal;
+	font-weight:300;
+	src: local('Open Sans Cond Light'), local('OpenSans-CondensedLight'), url(http://themes.googleusercontent.com/static/fonts/opensanscondensed/v6/gk5FxslNkTTHtojXrkp-xF1YPouZEKgzpqZW9wN-3Ek.woff) format('woff');
+}
+body {
+	background:rgb(255,255,255);
+	color:rgb(0,0,0);
+	line-height:1;
+	font-family:'Open Sans Condensed';
+	-webkit-font-smoothing:antialiased;
+	-moz-font-smoothing:antialiased;
+	font-smoothing:antialiased;
+	text-rendering:optimizeLegibility;
+}
+.main {
+	position:absolute;
+	top:0;
+	right:0;
+	bottom:0;
+	left:0;
+	margin:auto;
+	width:80%;
+	height:50%;
+	text-align:center;
+}
+header {
+	margin-bottom:40px;
+}
+a, a:hover, a:visited {
+	color:rgb(57,83,111);
+}
+form {
+	background:transparent;
+	padding:20px;
+	margin:0;
+	box-shadow:rgba(200,200,200,0.2) 0px -2px 10px 3px;
+}
+form label {
+	letter-spacing:2px;
+	text-transform:uppercase;
+}
+form input {
+	padding:8px;
+	font-family:'Open Sans Condensed';
+	width:80%;
+	box-shadow:inset 0px -2px 10px 3px rgba(200,200,200,0.2);
+	font-size:24px;
+	margin:0 auto;
+	margin-top:15px;
+}
+form, form input, form input.button {
+	border-top-left-radius:10px;
+	border-bottom-right-radius:10px;
+	border-bottom-left-radius:0px;
+	border-top-right-radius:0px;
+	display:block;
+	border:1px solid rgb(231,231,231);
+}
+form input.button {
+	background:transparent;
+	width:5em;
+	font-size:16px;
+	text-transform:uppercase;
+	line-height:.8em;
+	cursor:hand;
+	cursor:pointer;
+	text-align:center;
+}
+form input, form input.button {
+	-webkit-appearance:none;
+}
+footer, header {
+	display: block;
+}
+h3 {
+	font-family:'Amatic SC';
+	font-size:72px;
+	text-shadow:0.5px 1px 29px rgb(247, 247, 255);
+	text-transform:uppercase;
+	font-weight:normal;
+}
+h3 a {
+	text-decoration:none;
+}
+.response {
+	font-size:18px;
+	margin-bottom:15px;
+	line-height:1.5em;
+	margin-top:0px;
+}
+.response a {
+	font-size:140%;
+}
+footer {
+	margin-top:40px;
+}
+footer p {
+	margin-bottom:9px;
+}
+.footer-text {
+	font-size:90%;
+	text-transform:uppercase;
+}
+.footer-text a {
+	text-decoration:none;
+}
+small {
+	font-size:80%;
+}
+
+@media only screen and (max-width:767px) {
+	h3 {
+		font-size:48px;
+	}
+	.response a {
+		font-size:100%;
+	}
+	form label, form input.button {
+		font-size:13px;
+	}
+	form input {
+		padding:5px;
+		font-size:18px;
+	}
+	footer {
+		padding-bottom:20px;
+	}
+}

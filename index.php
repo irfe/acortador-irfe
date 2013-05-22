@@ -1,91 +1,96 @@
 <?php
-ob_start();
+ob_start("ob_gzhandler");
+header('Content-Language: es');
+$domain = "http://i.irfe.cl";
+$title = 'Acortador de links';
+$postitle = 'IRFE.cl';
+$descript = 'El acortador de links del Instituto Regional Federico Errázuriz';
+$fulltitle = $title.' | '.$postitle;
+$version = '0.7.2';
+$version_date = '21052013';
+$version_int = $version.'.'.$version_date;
 ?>
-<!DOCTYPE html><head><title>IRFE.cl | Acortador de links</title><meta name="viewport"content="width=device-width, initial-scale=1, maximum-scale=1" /><meta name="apple-mobile-web-app-capable"content="yes" /><script type="text/javascript"src="https://www.google.com/jsapi"></script><script type="text/javascript">google.load("webfont", "1");google.setOnLoadCallback(function() {WebFont.load({ google: {families: [ 'Amatic+SC:700:latin', 'Open+Sans+Condensed:300:latin' ] }}); });</script><meta charset=utf-8 /><style type="text/css"><!-- body{font-family:'Open Sans Condensed';font-size:0.9em;-webkit-font-smoothing:antialiased;}div.centro{margin-top:136px;width:85%;margin-left:auto;margin-right:auto;text-align:center;height:340px;}span{vertical-align:middle}a, a:hover, a:visited {color:#d20000;}form{padding:15px;margin:0;border:1px solid #dddddd;border-top-left-radius:10px;border-bottom-right-radius:10px;box-shadow:rgba(200,200,200,0.7) 0 4px 10px -1px;}form label{letter-spacing:2px;text-transform: uppercase;}form input{margin-top:12px;border:1px solid #dddddd;padding:8px;font-family:'Open Sans Condensed';width:80%;box-shadow:inset 3px 3px 5px rgba(200,200,200,0.2);font-size:1.5em;border-radius: 0.2em;}form input.button{width:6em;font-size:1em;color:rgb(5, 5, 5);background:-moz-linear-gradient( top, white 0%, whiteSmoke);background:-webkit-gradient( linear, left top, left bottom, from(white), to(whiteSmoke));border-radius:.5em;-moz-border-radius:14px;border:1px solid rgb(196, 196, 196);text-shadow: 0px -1px 0px rgba(000, 000, 000, 0.2), 0px 1px 0px rgba(255, 255, 255, 0.4);text-transform:uppercase;text-align:center;height:2em;line-height:90%;}#titulo{font-family:'Amatic SC';font-size:6em;margin-bottom:-.3em;text-shadow: 0.5px 0.1px 29px ghostWhite;text-transform:uppercase;}p.response{font-size:1.3em;}p.response a{font-weight:bold;font-size: 1.5em;} footer {margin:25px 0 0 0;} footer p{line-height:40%;}#titulo a{text-decoration:none;}@media only screen and (max-width: 767px) {div.centro {margin-top: 0px;} #titulo {font-size:2.5em;} } //--></style></head><body><?php
+<!doctype html>
+<html lang="es">
+	<head>
+		<title><?php echo $fulltitle;?></title>
+		<meta charset="utf-8"/>
+		<link rel="stylesheet" href="assets/style.css" media="screen" type="text/css"/>
+		<link rel="canonical" href="<?php echo $domain;?>"/>
+		<link rel="shortcut icon" href="assets/images/favicon.png"/>
+		<link rel="apple-touch-icon-precomposed" href="assets/images/apple-icon.png"/>
+		<meta name="description" content="<?php echo $descript;?>"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+		<meta name="format-detection" content="telephone=no"/>
+		<meta name="robots" content="all"/>
+		<meta name="google" content="notranslate"/>
+		<meta property="og:image" content="<?php echo $domain.'/assets/images/og.png';?>" />
+	</head>
+	<body><?php
 /*
 *
 *	Ignacio Trujillo
-*	Alpha - v.0.5
+*	Alpha - v.1
 *	copyright (c) 2010
 *	Creative Commons Attribution 3.0
 *
 */
-/*
-el sitio donde se guardan las URLs es:
-*/
 $file = 'links.dat';
 
-/* 
-use mod_rewrite: 0 - no or 1 - yes
-*/
+// use mod_rewrite: 0 - no or 1 - yes
 $use_rewrite = 1;
 
-/*
-language/style/output variables
-*/
+// language/style/output variables
 
-$l_url			= 'URL';
-$l_nourl		= '<strong>&iexcl;Falta la direcci&oacute;n!</strong>';
-$l_yoururl		= '<strong>&iexcl;&Eacute;xito! La direcci&oacute;n corta es:</strong>';
-$l_invalidurl	= '<strong>&iexcl;Alto ah&iacute;! A la direcci&oacute;n le falta el prefijo "http://"</strong>';
-$l_createurl	= 'Acortar link';
-$titulo               = 'Acortador de links';
-$ingresourl        = '&iquest;Qu&eacute; direcci&oacute;n deseas acortar&#63;';
-$primerano        = '2010';
-$ultimoano        = '2013';
-$version            = '0.6.2';
-$fechaversion    = '22122011';
-$linkantiguo      = 'prev/v0.3.0~20122010/';
-
-//////////////////// NO EDITAR ////////////////////
-
-if(!is_writable($file) || !is_readable($file))
-{
-	die('Ignacio: ve si los permisos est&aacute;n bien o revisa la key.');
+function random_data($one,$two,$three,$four,$five,$six) {
+	$results = array($one,$two,$three,$four,$five,$six);
+	return $results[rand(0, count($results) - 1)];
 }
+
+$l_url = 'URL';
+$no_url = random_data('&iexcl;Falta el link!','No te preocupes, a todos nos puede pasar. &iquest;Y si lo intentas otra vez?','Creo que olvidaste un peque&ntilde;o detalle.','No s&eacute; qu&eacute; hacer... ERROR ERROR ERROR.','Estoy confundido, &iquest;d&oacute;nde est&aacute; el link?','Ups, creo que falta algo aqu&iacute;.');
+$url_success = random_data('OK!','&iexcl;&Eacute;xito!','&iexcl;Buen viaje!','&iexcl;Todo bien!','&iexcl;As&iacute; se hace!','&iexcl;Result&oacute;!') .' El link corto es:';
+$stop = random_data('&iexcl;Detente!','&iexcl;Alto ah&iacute;!','Algo malo pas&oacute;.','Ups.','Whoooops.','STOP.');
+$url_invalid = $stop .' Hay un error en el link que ingresaste y no puedo procesarlo.';
+$url_invalid2 = $stop .' No me ense&ntilde;aron a acortarme a m&iacute; mismo.';
+$l_createurl = 'Acortar';
+$input_url_text = '&iquest;Qu&eacute; link deseas acortar&#63;';
+$first_year = '2010';
+$this_year = date("Y");
+
+if(!is_writable($file) || !is_readable($file)) die('Revisa la key.');
 
 $action = trim($_GET['id']);
 $action = (empty($action) || $action == '') ? 'create' : 'redirect';
 
-/*
-$valid = "^(https?|ftp)\:\/\/([a-z0-9+!*(),;?&=\$_.-]+(\:[a-z0-9+!*(),;?&=\$_.-]+)?@)?[a-z0-9+\$_-]+(\.[a-z0-9+\$_-]+)*(\:[0-9]{2,5})?(\/([a-z0-9+\$_-]\.?)+)*\/?(\?[a-z+&\$_.-][a-z0-9;:@/&%=+\$_.-]*)?(#[a-z_.-][a-z0-9+\$_.-]*)?\$";
-*/
-
-$valid = "^(https?|ftp)\:\/\/";
 $output = '';
 
-if($action == 'create')
-{
-	if(isset($_POST['create']))
-	{
+if($action == 'create') {
+	if(isset($_POST['create'])) {
 		$url = trim($_POST['url']);
-		
-		if($url == '')
-		{
-			$output = $l_nourl;
-		}
-		else
-		{
-			if(eregi($valid, $url))
-			{
-				$fp = fopen($file, 'a');
-				fwrite($fp, "{$url}\r\n");
-				fclose($fp);
-				
-				$id			= count(file($file));
-				$dir		= dirname($_SERVER['PHP_SELF']);
-				$filename	= explode('/', $_SERVER['PHP_SELF']);
-				$filename   = $filename[(count($filename) - 1)];
-				
-				$shorturl = ($use_rewrite == 1) ? "http://{$_SERVER['HTTP_HOST']}{$dir}{$id}" : "http://{$_SERVER['HTTP_HOST']}{$dir}/{$filename}?id={$id}";
+		if ($url == '') $output = $no_url;
+		else {
+			if (preg_match("#https?://#", $url) === 0) $url = 'http://'.$url;
+			// if ( (filter_var($url, FILTER_VALIDATE_URL) == true) and (strpos($url,'.') == true) ) {
+			if (preg_match("/(([\w-]+:\/\/?|[\w\d]+[.])?[^\s()<>]+[.](?:\([\w\d]+\)|([^`!()\[\]{};:'\".,<>?«»“”‘’\s]|\/)+))/", $url) ) {
+				if (preg_match('/(?:f|ht)tps?:\/\/i\.irfe\.cl\/\d+$/i', $url) ) {
+					$output = $url_invalid2;
+				}
+				else {
+					$fp = fopen($file, 'a');
+					fwrite($fp, "{$url}\r\n");
+					fclose($fp);
+					$id	= count(file($file));
+					$dir = dirname($_SERVER['PHP_SELF']);
+					$filename = explode('/', $_SERVER['PHP_SELF']);
+					$filename = $filename[(count($filename) - 1)];
 
-				$target = '_blank';
-				$output = "{$l_yoururl} <a href='{$shorturl}' target='{$target}'>{$shorturl}</a>";
+					$shorturl = ($use_rewrite == 1) ? "http://{$_SERVER['HTTP_HOST']}{$dir}{$id}" : "http://{$_SERVER['HTTP_HOST']}{$dir}/{$filename}?id={$id}";
+
+					$output = $url_success .' <a href="'.$shorturl.'" target="_blank">'.$shorturl.'</a>';
+				}
 			}
-			else
-			{
-				$output = $l_invalidurl;
-			}
+			else $output = $url_invalid;
 		}
 	}
 }
@@ -96,19 +101,62 @@ if($action == 'redirect')
 	$id   = trim($_GET['id']) - 1;
 	if(isset($urls[$id]))
 	{
+		header ('HTTP/1.1 301 Moved Permanently');
 		header("Location: {$urls[$id]}");
+		header("X-From: {$domain}");
 		exit;
 	}
-	else
-	{
-		die('<script type=text/javascript >
-window.location="http://i.irfe.cl";
-</script>
-</body>');
+	else {
+		header("Location: {$domain}");
+		exit;
 	}
 }
 
-//////////////////// Se puede editar abajo. ////////////////////
-?><div class="centro"><span><p id="titulo"><a href="http://i.irfe.cl"><? echo "$titulo"; ?></a></p><br /><form action="<?=$_SERVER['PHP_SELF']?>" method="post"><p class="response"><?=$output?></p><p><label for="s-url"><?php echo "$ingresourl"; ?></label><br /><input id="s-url"type="text"name="url"placeholder="http://" /></p><p><input type="submit"class="button"name="create"value="<?=$l_createurl?>" /></p></form><footer><p><?php echo "v $version ($fechaversion)"; ?> - <a href=<?php echo "$linkantiguo";?> target="_blank" >Ir a versi&oacute;n anterior</a></p><p>Creado por Ignacio Trujillo. <?php echo "$primerano - $ultimoano"; ?></footer><a href="http://twitter.com/share"class="twitter-share-button"data-url="http://i.irfe.cl/"data-count="none"data-via="ignaces"data-related="irfe">Tweet</a><script type="text/javascript"src="http://platform.twitter.com/widgets.js"></script></span></div></body></html><?php
-ob_end_flush();
+function hide_email($email,$name) {
+	$character_set = '+-.0123456789@ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz';
+	$character_set2 = ' &#;0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz';
+	$key = str_shuffle($character_set);
+	$key2 = str_shuffle($character_set2);
+	$cipher_text = '';
+	$cipher_name = '';
+	$id = 'e'.rand(1,999999999);
+	for ($i=0;$i<strlen($email);$i+=1) $cipher_text.= $key[strpos($character_set,$email[$i])];
+	for ($z=0;$z<strlen($name);$z+=1) $cipher_name.= $key2[strpos($character_set2,$name[$z])];
+	$script = 'var a="'.$key.'";var b=a.split("").sort().join("");var c="'.$cipher_text.'";var d="";var f="'.$key2.'";var g=f.split("").sort().join("");var h="'.$cipher_name.'";var j="";';
+	$script.= 'for(var e=0;e<c.length;e++)d+=b.charAt(a.indexOf(c.charAt(e)));for(var k=0;k<h.length;k++)j+=g.charAt(f.indexOf(h.charAt(k)));';
+	$script.= 'document.getElementById("'.$id.'").innerHTML="<a href=\\"mailto:"+d+"\\">"+j+"</a>"';
+	$script = "eval(\"".str_replace(array("\\",'"'),array("\\\\",'\"'), $script)."\")";
+	$script = '<script type="text/javascript">/*<![CDATA[*/'.$script.'/*]]>*/</script>';
+	return '<span id="'.$id.'"></span>'.$script;
+}
+
 ?>
+		
+		<div class="main">
+			<header>
+				<h3><a href="<?php echo $domain; ?>"><?php echo $title;?></a></h3>
+			</header>
+			<form action="/" method="post">
+				<?php if ($output != '') echo '<p class="response">'.$output.'</p>
+				';?><label for="theurl"><?php echo $input_url_text;?></label>
+				<input id="theurl" type="text" name="url" placeholder="http://" />
+				<input type="submit" class="button" name="create" value="<?php echo $l_createurl; ?>" />
+			</form>
+			<footer>
+				<p><?php echo $first_year.' - ' .$this_year.', v'. $version.' <small>('.$version_date.')</small>'; ?></p>
+				<p class="footer-text"><small>por</small> <?php echo hide_email('ignaciotrujillo@irfe.cl','Ignacio Trujillo'); ?></p>
+				<p><a href="https://twitter.com/share" class="twitter-share-button" data-url="<?php if ($shorturl!='') echo $shorturl; else echo $domain;?>" data-text="<?php if ($shorturl!='') echo '&nbsp;'; else echo $title; ?>" data-via="irfe" data-lang="es" data-related="irfe" data-count="none">Twittear</a> <a href="https://twitter.com/irfe" class="twitter-follow-button" data-show-count="false" data-lang="es">Seguir a @irfe</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></p>	
+			</footer>
+		</div>
+		<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-20357096-1']);
+		_gaq.push(['_trackPageview']);
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+		</script>
+	</body>
+</html><?php ob_end_flush();?>
